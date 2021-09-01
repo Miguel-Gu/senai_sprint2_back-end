@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\fic\\Desktop\\senai_sprint2_back-end\\01_sqlclient\\01_filmes\\senai_filmes_webAPI\\senai_filmes_webAPI\\senai_filmes_webAPI.csproj": {}
+    "C:\\Users\\fic\\Desktop\\senai_sprint2_back-end\\01_sqlclient\\02_locadora\\senai_locadora_webApi\\senai_locadora_webApi\\senai_locadora_webApi\\senai_locadora_webApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\fic\\Desktop\\senai_sprint2_back-end\\01_sqlclient\\01_filmes\\senai_filmes_webAPI\\senai_filmes_webAPI\\senai_filmes_webAPI.csproj": {
+    "C:\\Users\\fic\\Desktop\\senai_sprint2_back-end\\01_sqlclient\\02_locadora\\senai_locadora_webApi\\senai_locadora_webApi\\senai_locadora_webApi\\senai_locadora_webApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\fic\\Desktop\\senai_sprint2_back-end\\01_sqlclient\\01_filmes\\senai_filmes_webAPI\\senai_filmes_webAPI\\senai_filmes_webAPI.csproj",
-        "projectName": "senai_filmes_webAPI",
-        "projectPath": "C:\\Users\\fic\\Desktop\\senai_sprint2_back-end\\01_sqlclient\\01_filmes\\senai_filmes_webAPI\\senai_filmes_webAPI\\senai_filmes_webAPI.csproj",
+        "projectUniqueName": "C:\\Users\\fic\\Desktop\\senai_sprint2_back-end\\01_sqlclient\\02_locadora\\senai_locadora_webApi\\senai_locadora_webApi\\senai_locadora_webApi\\senai_locadora_webApi.csproj",
+        "projectName": "senai_locadora_webApi",
+        "projectPath": "C:\\Users\\fic\\Desktop\\senai_sprint2_back-end\\01_sqlclient\\02_locadora\\senai_locadora_webApi\\senai_locadora_webApi\\senai_locadora_webApi\\senai_locadora_webApi.csproj",
         "packagesPath": "C:\\Users\\fic\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\fic\\Desktop\\senai_sprint2_back-end\\01_sqlclient\\01_filmes\\senai_filmes_webAPI\\senai_filmes_webAPI\\obj\\",
+        "outputPath": "C:\\Users\\fic\\Desktop\\senai_sprint2_back-end\\01_sqlclient\\02_locadora\\senai_locadora_webApi\\senai_locadora_webApi\\senai_locadora_webApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\fic\\AppData\\Roaming\\NuGet\\NuGet.Config",

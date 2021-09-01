@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "1LeSlVCbGKxvu3Ne6xoWSIWc7n/KbZuhBYw7rZT9mU3Z+NIsEZsUtgs2CpSzCOZku5NrDlzYaEbKQLw4UarNGA==",
+  "dgSpecHash": "Yacw12iafwd/imD0qUshnCQYt8zmyOuSS9M0mqye7f85MdWKz95xGhZXfqKRd4zAPSMGMvZkDAsRysrGVlFVBg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\fic\\Desktop\\senai_sprint2_back-end\\01_sqlclient\\01_filmes\\senai_filmes_webAPI\\senai_filmes_webAPI\\senai_filmes_webAPI.csproj",
+  "projectFilePath": "C:\\Users\\fic\\Desktop\\senai_sprint2_back-end\\01_sqlclient\\02_locadora\\senai_locadora_webApi\\senai_locadora_webApi\\senai_locadora_webApi\\senai_locadora_webApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\fic\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\fic\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
