@@ -13,7 +13,7 @@ namespace senai_locadora_webApi.Repositories
     /// </summary>
     public class VeiculoRepository : IVeiculoRepository
     {
-        private string stringConexao = "Data Source=LAPTOP-GBJVH1HS\\SQLEXPRESS; initial catalog=LOCADORA; user Id=sa; pwd=senai@132";
+        private string stringConexao = "Data Source=NOTE0113A4\\SQLEXPRESS; initial catalog=LOCADORA; user Id=sa; pwd=Senai@132";
         public void AtualizarIdCorpo(VeiculoDomain veiculoAtualizado)
         {
             if (veiculoAtualizado.placa != null)
@@ -41,7 +41,7 @@ namespace senai_locadora_webApi.Repositories
         {
             using (SqlConnection con = new SqlConnection(stringConexao))
             {
-                string querySelectById = "SELECT * FROM VEICULO WHERE idVeiculo = @idVeiculo";
+                string querySelectById = "SELECT nomeEmpresa, nomeModelo, placa FROM VEICULO LEFT JOIN EMPRESA ON EMPRESA.idEmpresa = VEICULO.idEmpresa LEFT JOIN MODELO ON MODELO.idModelo = VEICULO.idEmpresa WHERE idVeiculo = @idVeiculo;";
 
                 con.Open();
 
@@ -57,13 +57,16 @@ namespace senai_locadora_webApi.Repositories
                     {
                         VeiculoDomain veiculoBuscado = new VeiculoDomain
                         {
-                            idVeiculo = Convert.ToInt32(reader["idVeiculo"]),
+                            empresa = new EmpresaDomain()
+                            {
+                                nomeEmpresa = reader["nomeEmpresa"].ToString()
+                            },
+                            modelo = new ModeloDomain()
+                            {
+                                nomeModelo = reader["nomeModelo"].ToString()
+                            },
+                            placa = reader["placa"].ToString(),
 
-                            idEmpresa = Convert.ToInt32(reader["idEmpresa"]),
-
-                            idModelo = Convert.ToInt32(reader["idModelo"]),
-
-                            placa = reader["placa"]
                         };
 
                         return veiculoBuscado;
@@ -114,7 +117,7 @@ namespace senai_locadora_webApi.Repositories
 
             using (SqlConnection con = new SqlConnection(stringConexao))
             {
-                string querySelectAll = "SELECT * FROM VEICULO";
+                string querySelectAll = "SELECT nomeEmpresa, nomeModelo, placa FROM VEICULO LEFT JOIN EMPRESA ON EMPRESA.idEmpresa = VEICULO.idEmpresa LEFT JOIN MODELO ON MODELO.idModelo = VEICULO.idEmpresa";
 
                 con.Open();
 
@@ -128,13 +131,15 @@ namespace senai_locadora_webApi.Repositories
                     {
                         VeiculoDomain veiculo = new VeiculoDomain()
                         {
-                            idVeiculo = Convert.ToInt32(rdr[0]),
-
-                            idEmpresa = Convert.ToInt32(rdr[1]),
-
-                            idModelo = Convert.ToInt32(rdr[2]),
-
-                            placa = rdr[3].ToString()
+                            empresa = new EmpresaDomain()
+                            {
+                                nomeEmpresa = rdr[0].ToString(),
+                            },
+                            modelo = new ModeloDomain()
+                            {
+                                nomeModelo = rdr[1].ToString(),
+                            },
+                            placa = rdr[2].ToString()
                         };
 
                         listaVeiculos.Add(veiculo);

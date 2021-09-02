@@ -10,7 +10,7 @@ namespace senai_locadora_webApi.Repositories
 {
     public class ClienteRepository : IClienteRepository
     {
-        private string stringConexao = "Data Source=LAPTOP-GBJVH1HS\\SQLEXPRESS; initial catalog=LOCADORA; user Id=sa; pwd=senai@132";
+        private string stringConexao = "Data Source=NOTE0113A4\\SQLEXPRESS; initial catalog=LOCADORA; user Id=sa; pwd=Senai@132";
 
         public void AtualizarIdCorpo(ClienteDomain clienteAtualizado)
         {
@@ -18,7 +18,7 @@ namespace senai_locadora_webApi.Repositories
             {
                 using (SqlConnection con = new SqlConnection(stringConexao))
                 {
-                    string queryUpdateBody = "UPDATE GENERO SET nomeCliente = @nomeCliente WHERE idCliente = @idCliente";
+                    string queryUpdateBody = "UPDATE CLIENTE SET nomeCliente = @nomeCliente WHERE idCliente = @idCliente";
 
                     using (SqlCommand cmd = new SqlCommand(queryUpdateBody, con))
                     {

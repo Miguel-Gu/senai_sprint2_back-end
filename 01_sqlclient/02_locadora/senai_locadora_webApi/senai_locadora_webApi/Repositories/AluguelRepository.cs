@@ -10,10 +10,10 @@ namespace senai_locadora_webApi.Repositories
 {
     public class AluguelRepository : IAluguelRepository
     {
-        private string stringConexao = "Data Source=LAPTOP-GBJVH1HS\\SQLEXPRESS; initial catalog=LOCADORA; user Id=sa; pwd=senai@132";
+        private string stringConexao = "Data Source=NOTE0113A4\\SQLEXPRESS; initial catalog=LOCADORA; user Id=sa; pwd=Senai@132";
         public void AtualizarIdCorpo(AluguelDomain aluguelAtualizado)
         {
-            if (aluguelAtualizado.dataDevolucao != null)
+            if (aluguelAtualizado != null)
             {
                 using (SqlConnection con = new SqlConnection(stringConexao))
                 {
@@ -38,7 +38,7 @@ namespace senai_locadora_webApi.Repositories
         {
             using (SqlConnection con = new SqlConnection(stringConexao))
             {
-                string querySelectById = "SELECT * FROM ALUGUEL WHERE idAluguel = @idAluguel";
+                string querySelectById = "SELECT A.idVeiculo, dataRetirada, dataDevolucao, CLIENTE.nomeCliente, M.idModelo, M.nomeModelo FROM ALUGUEL A LEFT JOIN CLIENTE ON A.idcliente = CLIENTE.idCliente LEFT JOIN VEICULO ON A.idVeiculo = VEICULO.idVeiculo LEFT JOIN MODELO M ON VEICULO.idModelo = M.idModelo WHERE idAluguel = @idAluguel;";
 
                 con.Open();
 
@@ -60,9 +60,9 @@ namespace senai_locadora_webApi.Repositories
 
                             idCliente = Convert.ToInt32(reader["idCliente"]),
 
-                            dataRetirada = reader["dataRetirada"],
+                            dataRetirada = Convert.ToDateTime(reader["dataRetirada"]),
 
-                            dataDevolucao = reader["dataDevolucao"]
+                            dataDevolucao = Convert.ToDateTime(reader["dataDevolucao"])
 
                         };
 
@@ -114,7 +114,7 @@ namespace senai_locadora_webApi.Repositories
 
             using (SqlConnection con = new SqlConnection(stringConexao))
             {
-                string querySelectAll = "SELECT * FROM ALUGUEL";
+                string querySelectAll = "SELECT A.idVeiculo, dataRetirada, dataDevolucao, CLIENTE.nomeCliente, M.idModelo, M.nomeModelo FROM ALUGUEL A LEFT JOIN CLIENTE ON A.idcliente = CLIENTE.idCliente LEFT JOIN VEICULO ON A.idVeiculo = VEICULO.idVeiculo LEFT JOIN MODELO M ON VEICULO.idModelo = M.idModelo;";
 
                 con.Open();
 
@@ -128,21 +128,27 @@ namespace senai_locadora_webApi.Repositories
                     {
                         AluguelDomain aluguel = new AluguelDomain()
                         {
-                            idAluguel = Convert.ToInt32(rdr[0]),
-
-                            idVeiculo = Convert.ToInt32(rdr[1]),
-
-                            idCliente = Convert.ToInt32(rdr[2]),
-
-                            dataRetirada = rdr[3],
-
-                            dataDevolucao = rdr[4]
+                            idVeiculo = Convert.ToInt32(rdr[0]),
+                            dataRetirada = Convert.ToDateTime(rdr[1]),
+                            dataDevolucao = Convert.ToDateTime(rdr[2]),
+                            cliente = new ClienteDomain()
+                            {
+                                nomeCliente = rdr[3].ToString(),
+                            },
+                            veiculo = new VeiculoDomain()
+                            {
+                                modelo = new ModeloDomain()
+                                {
+                                    idModelo = Convert.ToInt32(rdr[4]),
+                                    nomeModelo = rdr[5].ToString()
+                                }
+                            }
                         };
 
                         listaAlugueis.Add(aluguel);
                     }
                 }
-            };
+            }
 
             return listaAlugueis;
         }

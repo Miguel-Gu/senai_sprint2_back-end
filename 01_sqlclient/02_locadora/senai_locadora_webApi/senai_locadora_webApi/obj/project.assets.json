@@ -454,19 +454,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\gumig\\.nuget\\packages\\": {}
+    "C:\\Users\\fic\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\gumig\\Desktop\\Dev\\2ºSemestre\\senai_sprint2_api\\01_sqlclient\\02_locadora\\senai_locadora_webApi\\senai_locadora_webApi\\senai_locadora_webApi.csproj",
+      "projectUniqueName": "C:\\Users\\fic\\Desktop\\senai_sprint2_back-end\\01_sqlclient\\02_locadora\\senai_locadora_webApi\\senai_locadora_webApi\\senai_locadora_webApi.csproj",
       "projectName": "senai_locadora_webApi",
-      "projectPath": "C:\\Users\\gumig\\Desktop\\Dev\\2ºSemestre\\senai_sprint2_api\\01_sqlclient\\02_locadora\\senai_locadora_webApi\\senai_locadora_webApi\\senai_locadora_webApi.csproj",
-      "packagesPath": "C:\\Users\\gumig\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\gumig\\Desktop\\Dev\\2ºSemestre\\senai_sprint2_api\\01_sqlclient\\02_locadora\\senai_locadora_webApi\\senai_locadora_webApi\\obj\\",
+      "projectPath": "C:\\Users\\fic\\Desktop\\senai_sprint2_back-end\\01_sqlclient\\02_locadora\\senai_locadora_webApi\\senai_locadora_webApi\\senai_locadora_webApi.csproj",
+      "packagesPath": "C:\\Users\\fic\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\fic\\Desktop\\senai_sprint2_back-end\\01_sqlclient\\02_locadora\\senai_locadora_webApi\\senai_locadora_webApi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\gumig\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\fic\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
