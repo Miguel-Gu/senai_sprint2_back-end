@@ -9,7 +9,7 @@ namespace senai_locadora_webApi.Domains
     {   /// <summary>
         /// Classe representa a entidade (tabela) EMPRESA
         /// </summary>
-        public int idFilme { get; set; }
+        public int idEmpresa { get; set; }
         public string nomeEmpresa { get; set; }
     }
 }

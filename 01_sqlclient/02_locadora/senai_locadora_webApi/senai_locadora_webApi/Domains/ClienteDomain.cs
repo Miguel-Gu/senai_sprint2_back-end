@@ -13,6 +13,6 @@ namespace senai_locadora_webApi.Domains
         public int idCliente { get; set; }
         public string nomeCliente { get; set; }
         public string sobrenomeCliente { get; set; }
-        public int CNH { get; set; }
+        public string CNH { get; set; }
     }
 }

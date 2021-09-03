@@ -18,11 +18,13 @@ namespace senai_locadora_webApi.Repositories
             {
                 using (SqlConnection con = new SqlConnection(stringConexao))
                 {
-                    string queryUpdateBody = "UPDATE CLIENTE SET nomeCliente = @nomeCliente WHERE idCliente = @idCliente";
+                    string queryUpdateBody = "UPDATE CLIENTE SET nomeCliente = @nomeCliente, sobrenomeCliente = @sobrenomeCliente, CNH = @CNH WHERE idCliente = @idCliente";
 
                     using (SqlCommand cmd = new SqlCommand(queryUpdateBody, con))
                     {
                         cmd.Parameters.AddWithValue("@nomeCliente", clienteAtualizado.nomeCliente);
+                        cmd.Parameters.AddWithValue("@sobrenomeCliente", clienteAtualizado.sobrenomeCliente);
+                        cmd.Parameters.AddWithValue("@CNH", clienteAtualizado.CNH);
                         cmd.Parameters.AddWithValue("@idCliente", idCliente);
 
                         con.Open();
@@ -37,7 +39,7 @@ namespace senai_locadora_webApi.Repositories
         {
             using (SqlConnection con = new SqlConnection(stringConexao))
             {
-                string querySelectById = "SELECT nomeCliente, idCliente FROM CLIENTE WHERE idCliente = @idCliente";
+                string querySelectById = "SELECT * FROM CLIENTE WHERE idCliente = @idCliente";
 
                 con.Open();
 
@@ -55,7 +57,11 @@ namespace senai_locadora_webApi.Repositories
                         {
                             idCliente = Convert.ToInt32(reader["idCliente"]),
 
-                            nomeCliente = reader["nomeCliente"].ToString()
+                            nomeCliente = reader["nomeCliente"].ToString(),
+
+                            sobrenomeCliente = reader["sobrenomeCliente"].ToString(),
+
+                            CNH = reader["CNH"].ToString()
                         };
 
                         return clienteBuscado;
@@ -108,7 +114,7 @@ namespace senai_locadora_webApi.Repositories
 
             using (SqlConnection con = new SqlConnection(stringConexao))
             {
-                string querySelectAll = "SELECT idCliente, nomeCliente FROM CLIENTE";
+                string querySelectAll = "SELECT * FROM CLIENTE";
 
                 con.Open();
 
@@ -124,7 +130,11 @@ namespace senai_locadora_webApi.Repositories
                         {
                             idCliente = Convert.ToInt32(rdr[0]),
 
-                            nomeCliente = rdr[1].ToString()
+                            nomeCliente = rdr[1].ToString(),
+
+                            sobrenomeCliente = rdr[2].ToString(),
+
+                            CNH = rdr[3].ToString()
                         };
 
                         listaClientes.Add(cliente);

@@ -53,10 +53,10 @@ namespace senai_locadora_webApi.Controllers
             return StatusCode(201);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{idVeiculo}")]
         public IActionResult PutIdUrl(int idVeiculo, VeiculoDomain veiculoAtualizado)
         {
-            if (veiculoAtualizado != null || veiculoAtualizado.idVeiculo <= 0)
+            if (veiculoAtualizado == null || veiculoAtualizado.idVeiculo <= 0)
             {
                 return BadRequest(
                     new
@@ -65,7 +65,7 @@ namespace senai_locadora_webApi.Controllers
                     });
             }
 
-            VeiculoDomain veiculoBuscado = _VeiculoRepository.BuscarPorId(veiculoAtualizado.idVeiculo);
+            VeiculoDomain veiculoBuscado = _VeiculoRepository.BuscarPorId(idVeiculo);
 
             if (veiculoBuscado != null)
             {
@@ -93,9 +93,21 @@ namespace senai_locadora_webApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            _VeiculoRepository.Deletar(id);
+            try
+            {
+                _VeiculoRepository.Deletar(id);
 
-            return NoContent();
+                return NoContent();
+            }
+            catch (Exception codErro)
+            {
+                return BadRequest(
+                    
+                    new
+                    {
+                        mensagem = "Não é possível excluir esse veículo pois existe um aluguel vinculado a ele"
+                    });
+            }
         }
     }
 }

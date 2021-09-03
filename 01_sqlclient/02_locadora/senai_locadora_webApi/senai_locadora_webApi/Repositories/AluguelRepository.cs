@@ -17,10 +17,11 @@ namespace senai_locadora_webApi.Repositories
             {
                 using (SqlConnection con = new SqlConnection(stringConexao))
                 {
-                    string queryUpdateBody = "UPDATE ALUGUEL SET dataDevolucao = @dataDevolucao WHERE idAluguel = @idAluguel";
+                    string queryUpdateBody = "UPDATE ALUGUEL SET idVeiculo = @idVeiculo, idCliente = @idCliente, dataRetirada = @dataRetirada, dataDevolucao = @dataDevolucao WHERE idAluguel = @idAluguel";
 
                     using (SqlCommand cmd = new SqlCommand(queryUpdateBody, con))
                     {
+                        cmd.Parameters.AddWithValue("@idAluguel", id);
                         cmd.Parameters.AddWithValue("@idVeiculo", aluguelAtualizado.idVeiculo);
                         cmd.Parameters.AddWithValue("@idCliente", aluguelAtualizado.idCliente);
                         cmd.Parameters.AddWithValue("@dataRetirada", aluguelAtualizado.dataRetirada);
@@ -38,31 +39,62 @@ namespace senai_locadora_webApi.Repositories
         {
             using (SqlConnection con = new SqlConnection(stringConexao))
             {
-                string querySelectById = "SELECT A.idVeiculo, dataRetirada, dataDevolucao, CLIENTE.nomeCliente, M.idModelo, M.nomeModelo FROM ALUGUEL A LEFT JOIN CLIENTE ON A.idcliente = CLIENTE.idCliente LEFT JOIN VEICULO ON A.idVeiculo = VEICULO.idVeiculo LEFT JOIN MODELO M ON VEICULO.idModelo = M.idModelo WHERE idAluguel = @idAluguel;";
+                string querySelectById = "SELECT * FROM ALUGUEL A LEFT JOIN CLIENTE ON A.idcliente = CLIENTE.idCliente LEFT JOIN VEICULO ON A.idVeiculo = VEICULO.idVeiculo LEFT JOIN MODELO M ON VEICULO.idModelo = M.idModelo LEFT JOIN EMPRESA ON VEICULO.idEmpresa = EMPRESA.idEmpresa LEFT JOIN MARCA ON M.idMarca = MARCA.idMarca WHERE idAluguel = @idAluguel";
 
                 con.Open();
 
-                SqlDataReader reader;
+                SqlDataReader rdr;
 
                 using (SqlCommand cmd = new SqlCommand(querySelectById, con))
                 {
                     cmd.Parameters.AddWithValue("@idAluguel", idAluguel);
 
-                    reader = cmd.ExecuteReader();
+                    rdr = cmd.ExecuteReader();
 
-                    if (reader.Read())
+                    if (rdr.Read())
                     {
-                        AluguelDomain aluguelBuscado = new AluguelDomain
+                        AluguelDomain aluguelBuscado = new AluguelDomain()
                         {
-                            idAluguel = Convert.ToInt32(reader["idAluguel"]),
+                            idAluguel = Convert.ToInt32(rdr[0]),
+                            idVeiculo = Convert.ToInt32(rdr["idVeiculo"]),
+                            veiculo = new VeiculoDomain()
+                            {
+                                idVeiculo = Convert.ToInt32(rdr["idVeiculo"]),
+                                placa = rdr["placa"].ToString(),
+                                idEmpresa = Convert.ToInt32(rdr["idEmpresa"]),
+                                empresa = new EmpresaDomain()
+                                {
+                                    idEmpresa = Convert.ToInt32(rdr["idEmpresa"]),
+                                    nomeEmpresa = rdr["nomeEmpresa"].ToString()
+                                },
 
-                            idVeiculo = Convert.ToInt32(reader["idVeiculo"]),
+                                idModelo = Convert.ToInt32(rdr["idModelo"]),
+                                modelo = new ModeloDomain()
+                                {
+                                    idModelo = Convert.ToInt32(rdr["idModelo"]),
+                                    nomeModelo = rdr["nomeModelo"].ToString(),
 
-                            idCliente = Convert.ToInt32(reader["idCliente"]),
+                                    idMarca = Convert.ToInt32(rdr["idMarca"]),
+                                    marca = new MarcaDomain()
+                                    {
+                                        idMarca = Convert.ToInt32(rdr["idMarca"]),
+                                        nomeMarca = rdr["nomeMarca"].ToString()
+                                    }
+                                }
+                            },
 
-                            dataRetirada = Convert.ToDateTime(reader["dataRetirada"]),
+                            idCliente = Convert.ToInt32(rdr["idCliente"]),
+                            cliente = new ClienteDomain()
+                            {
+                                idCliente = Convert.ToInt32(rdr["idCliente"]),
+                                nomeCliente = rdr["nomeCliente"].ToString(),
+                                sobrenomeCliente = rdr["sobrenomeCliente"].ToString(),
+                                CNH = rdr["CNH"].ToString(),
 
-                            dataDevolucao = Convert.ToDateTime(reader["dataDevolucao"])
+                            },
+
+                            dataRetirada = Convert.ToDateTime(rdr["dataRetirada"]),
+                            dataDevolucao = Convert.ToDateTime(rdr["dataDevolucao"])
 
                         };
 
@@ -78,7 +110,7 @@ namespace senai_locadora_webApi.Repositories
         {
             using (SqlConnection con = new SqlConnection(stringConexao))
             {
-                string queryInsert = "INSERT INTO ALUGUEL (idVeiculo) VALUES (@idVeiculo)";
+                string queryInsert = "INSERT INTO ALUGUEL (idVeiculo, idCliente, dataRetirada, dataDevolucao) VALUES (@idVeiculo, @idCliente, @dataRetirada, @dataDevolucao)";
 
                 con.Open();
 
@@ -86,8 +118,8 @@ namespace senai_locadora_webApi.Repositories
                 {
                     cmd.Parameters.AddWithValue("@idVeiculo", novoAluguel.idVeiculo);
                     cmd.Parameters.AddWithValue("@idCliente", novoAluguel.idCliente);
-                    cmd.Parameters.AddWithValue("@dataRetirada", Convert.ToString(novoAluguel.dataRetirada));
-                    cmd.Parameters.AddWithValue("@dataDevolucao", Convert.ToString(novoAluguel.dataDevolucao));
+                    cmd.Parameters.AddWithValue("@dataRetirada", novoAluguel.dataRetirada);
+                    cmd.Parameters.AddWithValue("@dataDevolucao", novoAluguel.dataDevolucao);
 
 
                     cmd.ExecuteNonQuery();
@@ -118,7 +150,7 @@ namespace senai_locadora_webApi.Repositories
 
             using (SqlConnection con = new SqlConnection(stringConexao))
             {
-                string querySelectAll = "SELECT A.idVeiculo, dataRetirada, dataDevolucao, CLIENTE.nomeCliente, M.idModelo, M.nomeModelo FROM ALUGUEL A LEFT JOIN CLIENTE ON A.idcliente = CLIENTE.idCliente LEFT JOIN VEICULO ON A.idVeiculo = VEICULO.idVeiculo LEFT JOIN MODELO M ON VEICULO.idModelo = M.idModelo;";
+                string querySelectAll = "SELECT * FROM ALUGUEL A LEFT JOIN CLIENTE ON A.idcliente = CLIENTE.idCliente LEFT JOIN VEICULO ON A.idVeiculo = VEICULO.idVeiculo LEFT JOIN MODELO M ON VEICULO.idModelo = M.idModelo LEFT JOIN EMPRESA ON VEICULO.idEmpresa = EMPRESA.idEmpresa LEFT JOIN MARCA ON M.idMarca = MARCA.idMarca";
 
                 con.Open();
 
@@ -132,21 +164,47 @@ namespace senai_locadora_webApi.Repositories
                     {
                         AluguelDomain aluguel = new AluguelDomain()
                         {
-                            idVeiculo = Convert.ToInt32(rdr[0]),
-                            dataRetirada = Convert.ToDateTime(rdr[1]),
-                            dataDevolucao = Convert.ToDateTime(rdr[2]),
-                            cliente = new ClienteDomain()
-                            {
-                                nomeCliente = rdr[3].ToString(),
-                            },
+                            idAluguel = Convert.ToInt32(rdr[0]),
+                            idVeiculo = Convert.ToInt32(rdr["idVeiculo"]),
                             veiculo = new VeiculoDomain()
                             {
+                                idVeiculo = Convert.ToInt32(rdr["idVeiculo"]),
+                                placa = rdr["placa"].ToString(),
+                                idEmpresa = Convert.ToInt32(rdr["idEmpresa"]),
+                                empresa = new EmpresaDomain()
+                                {
+                                    idEmpresa = Convert.ToInt32(rdr["idEmpresa"]),
+                                    nomeEmpresa = rdr["nomeEmpresa"].ToString()
+                                },
+
+                                idModelo = Convert.ToInt32(rdr["idModelo"]),
                                 modelo = new ModeloDomain()
                                 {
-                                    idModelo = Convert.ToInt32(rdr[4]),
-                                    nomeModelo = rdr[5].ToString()
+                                    idModelo = Convert.ToInt32(rdr["idModelo"]),
+                                    nomeModelo = rdr["nomeModelo"].ToString(),
+
+                                    idMarca = Convert.ToInt32(rdr["idMarca"]),
+                                    marca = new MarcaDomain()
+                                    {
+                                        idMarca = Convert.ToInt32(rdr["idMarca"]),
+                                        nomeMarca = rdr["nomeMarca"].ToString()
+                                    }
                                 }
-                            }
+                            },
+
+                            idCliente = Convert.ToInt32(rdr["idCliente"]),
+                            cliente = new ClienteDomain()
+                            {
+                                idCliente = Convert.ToInt32(rdr["idCliente"]),
+                                nomeCliente = rdr["nomeCliente"].ToString(),
+                                sobrenomeCliente = rdr["sobrenomeCliente"].ToString(),
+                                CNH = rdr["CNH"].ToString(),
+
+                            },
+
+                            dataRetirada = Convert.ToDateTime(rdr["dataRetirada"]),
+                            dataDevolucao = Convert.ToDateTime(rdr["dataDevolucao"])
+
                         };
 
                         listaAlugueis.Add(aluguel);

@@ -53,9 +53,10 @@ namespace senai_locadora_webApi.Controllers
             return StatusCode(201);
         }
 
+        [HttpPut("{idAluguel}")]
         public IActionResult PutIUrl(int idAluguel, AluguelDomain aluguelAtualizado)
         {
-            if (aluguelAtualizado != null || aluguelAtualizado.idAluguel <= 0)
+            if (aluguelAtualizado == null || aluguelAtualizado.idAluguel <= 0)
             {
                 return BadRequest(
                     new
@@ -89,7 +90,7 @@ namespace senai_locadora_webApi.Controllers
                 );
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             _AluguelRepository.Deletar(id);

@@ -20,11 +20,11 @@ namespace senai_locadora_webApi.Repositories
             {
                 using (SqlConnection con = new SqlConnection(stringConexao))
                 {
-                    string queryUpdateBody = "UPDATE VEICULO SET placa = @placa WHERE idVeiculo = @idVeiculo";
+                    string queryUpdateBody = "UPDATE VEICULO SET placa = @placa, idEmpresa = @idEmpresa, idModelo= @idModelo WHERE idVeiculo = @idVeiculo";
 
                     using (SqlCommand cmd = new SqlCommand(queryUpdateBody, con))
                     {
-                        cmd.Parameters.AddWithValue("@idVeiculo", veiculoAtualizado.idVeiculo);
+                        cmd.Parameters.AddWithValue("@idVeiculo", idVeiculo);
                         cmd.Parameters.AddWithValue("@idEmpresa", veiculoAtualizado.idEmpresa);
                         cmd.Parameters.AddWithValue("@idModelo", veiculoAtualizado.idModelo);
                         cmd.Parameters.AddWithValue("@placa", veiculoAtualizado.placa);
@@ -41,32 +41,45 @@ namespace senai_locadora_webApi.Repositories
         {
             using (SqlConnection con = new SqlConnection(stringConexao))
             {
-                string querySelectById = "SELECT nomeEmpresa, nomeModelo, placa FROM VEICULO LEFT JOIN EMPRESA ON EMPRESA.idEmpresa = VEICULO.idEmpresa LEFT JOIN MODELO ON MODELO.idModelo = VEICULO.idEmpresa WHERE idVeiculo = @idVeiculo;";
+                string querySelectById = "SELECT * FROM VEICULO LEFT JOIN EMPRESA ON EMPRESA.idEmpresa = VEICULO.idEmpresa LEFT JOIN MODELO ON MODELO.idModelo = VEICULO.idEmpresa LEFT JOIN MARCA ON MARCA.idMarca = modelo.idMarca";
 
                 con.Open();
 
-                SqlDataReader reader;
+                SqlDataReader rdr;
 
                 using (SqlCommand cmd = new SqlCommand(querySelectById, con))
                 {
                     cmd.Parameters.AddWithValue("@idVeiculo", idVeiculo);
 
-                    reader = cmd.ExecuteReader();
+                    rdr = cmd.ExecuteReader();
 
-                    if (reader.Read())
+                    if (rdr.Read())
                     {
-                        VeiculoDomain veiculoBuscado = new VeiculoDomain
+                        VeiculoDomain veiculoBuscado = new VeiculoDomain()
                         {
+                            idVeiculo = Convert.ToInt32(rdr["idVeiculo"]),
+                            idEmpresa = Convert.ToInt32(rdr["idEmpresa"]),
+
                             empresa = new EmpresaDomain()
                             {
-                                nomeEmpresa = reader["nomeEmpresa"].ToString()
+                                idEmpresa = Convert.ToInt32(rdr["idEmpresa"]),
+                                nomeEmpresa = rdr["nomeEmpresa"].ToString(),
                             },
+
+                            idModelo = Convert.ToInt32(rdr["idModelo"]),
                             modelo = new ModeloDomain()
                             {
-                                nomeModelo = reader["nomeModelo"].ToString()
-                            },
-                            placa = reader["placa"].ToString(),
+                                idModelo = Convert.ToInt32(rdr["idModelo"]),
+                                nomeModelo = rdr["nomeModelo"].ToString(),
+                                idMarca = Convert.ToInt32(rdr["idMarca"]),
 
+                                marca = new MarcaDomain()
+                                {
+                                    idMarca = Convert.ToInt32(rdr["idMarca"]),
+                                    nomeMarca = rdr["nomeMarca"].ToString(),
+                                }
+                            },
+                            placa = rdr["placa"].ToString()
                         };
 
                         return veiculoBuscado;
@@ -81,13 +94,15 @@ namespace senai_locadora_webApi.Repositories
         {
             using (SqlConnection con = new SqlConnection(stringConexao))
             {
-                string queryInsert = "INSERT INTO VEICULO (placa) VALUES (@placa)";
+                string queryInsert = "INSERT INTO VEICULO (placa, idEmpresa, idModelo) VALUES (@placa, @idEmpresa, @idModelo)";
 
                 con.Open();
 
                 using (SqlCommand cmd = new SqlCommand(queryInsert, con))
                 {
                     cmd.Parameters.AddWithValue("@placa", novoVeiculo.placa);
+                    cmd.Parameters.AddWithValue("@idEmpresa", novoVeiculo.idEmpresa);
+                    cmd.Parameters.AddWithValue("@idModelo", novoVeiculo.idModelo);
 
                     cmd.ExecuteNonQuery();
                 }
@@ -117,7 +132,7 @@ namespace senai_locadora_webApi.Repositories
 
             using (SqlConnection con = new SqlConnection(stringConexao))
             {
-                string querySelectAll = "SELECT nomeEmpresa, nomeModelo, placa FROM VEICULO LEFT JOIN EMPRESA ON EMPRESA.idEmpresa = VEICULO.idEmpresa LEFT JOIN MODELO ON MODELO.idModelo = VEICULO.idEmpresa";
+                string querySelectAll = "SELECT * FROM VEICULO LEFT JOIN EMPRESA ON EMPRESA.idEmpresa = VEICULO.idEmpresa LEFT JOIN MODELO ON MODELO.idModelo = VEICULO.idEmpresa LEFT JOIN MARCA ON MARCA.idMarca = modelo.idMarca";
 
                 con.Open();
 
@@ -131,15 +146,29 @@ namespace senai_locadora_webApi.Repositories
                     {
                         VeiculoDomain veiculo = new VeiculoDomain()
                         {
+                            idVeiculo = Convert.ToInt32(rdr["idVeiculo"]),
+                            idEmpresa = Convert.ToInt32(rdr["idEmpresa"]),
+
                             empresa = new EmpresaDomain()
                             {
-                                nomeEmpresa = rdr[0].ToString(),
+                                idEmpresa = Convert.ToInt32(rdr["idEmpresa"]),
+                                nomeEmpresa = rdr["nomeEmpresa"].ToString(),
                             },
+
+                            idModelo = Convert.ToInt32(rdr["idModelo"]),
                             modelo = new ModeloDomain()
                             {
-                                nomeModelo = rdr[1].ToString(),
+                                idModelo = Convert.ToInt32(rdr["idModelo"]),
+                                nomeModelo = rdr["nomeModelo"].ToString(),
+                                idMarca = Convert.ToInt32(rdr["idMarca"]),
+
+                                marca = new MarcaDomain()
+                                {
+                                    idMarca = Convert.ToInt32(rdr["idMarca"]),
+                                    nomeMarca = rdr["nomeMarca"].ToString(),
+                                }
                             },
-                            placa = rdr[2].ToString()
+                            placa = rdr["placa"].ToString()
                         };
 
                         listaVeiculos.Add(veiculo);
