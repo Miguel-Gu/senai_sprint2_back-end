@@ -53,7 +53,7 @@ namespace senai_locadora_webApi.Controllers
             return StatusCode(201);
         }
 
-        public IActionResult PutIdBody(AluguelDomain aluguelAtualizado)
+        public IActionResult PutIUrl(int idAluguel, AluguelDomain aluguelAtualizado)
         {
             if (aluguelAtualizado != null || aluguelAtualizado.idAluguel <= 0)
             {
@@ -70,7 +70,7 @@ namespace senai_locadora_webApi.Controllers
             {
                 try
                 {
-                    _AluguelRepository.AtualizarIdCorpo(aluguelAtualizado);
+                    _AluguelRepository.AtualizarIdUrl(idAluguel, aluguelAtualizado);
 
                     return NoContent();
                 }
@@ -87,6 +87,14 @@ namespace senai_locadora_webApi.Controllers
                         errorStatus = true
                     }
                 );
+        }
+
+        [HttpDelete]
+        public IActionResult Delete(int id)
+        {
+            _AluguelRepository.Deletar(id);
+
+            return NoContent();
         }
     }
 }

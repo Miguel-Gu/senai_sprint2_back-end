@@ -16,7 +16,7 @@ namespace senai_locadora_webApi.Controllers
     public class VeiculosController : ControllerBase
     {
         private IVeiculoRepository _VeiculoRepository { get; set; }
-    
+
         public VeiculosController()
         {
             _VeiculoRepository = new VeiculoRepository();
@@ -53,8 +53,8 @@ namespace senai_locadora_webApi.Controllers
             return StatusCode(201);
         }
 
-        [HttpPut]
-        public IActionResult PutIdBody(VeiculoDomain veiculoAtualizado)
+        [HttpPut("{id}")]
+        public IActionResult PutIdUrl(int idVeiculo, VeiculoDomain veiculoAtualizado)
         {
             if (veiculoAtualizado != null || veiculoAtualizado.idVeiculo <= 0)
             {
@@ -71,7 +71,7 @@ namespace senai_locadora_webApi.Controllers
             {
                 try
                 {
-                    _VeiculoRepository.AtualizarIdCorpo(veiculoAtualizado);
+                    _VeiculoRepository.AtualizarIdUrl(idVeiculo, veiculoAtualizado);
 
                     return NoContent();
                 }
@@ -90,7 +90,7 @@ namespace senai_locadora_webApi.Controllers
                 );
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             _VeiculoRepository.Deletar(id);

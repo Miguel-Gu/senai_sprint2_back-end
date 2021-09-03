@@ -31,7 +31,7 @@ namespace senai_locadora_webApi.Interfaces
         /// Atualiza um veículo existente
         /// </summary>
         /// <param name="veiculoAtualizado"></param>
-        void AtualizarIdCorpo(VeiculoDomain veiculoAtualizado);
+        void AtualizarIdUrl(int IdVeiculo, VeiculoDomain veiculoAtualizado);
 
         /// <summary>
         /// Cadastra um novo veículo

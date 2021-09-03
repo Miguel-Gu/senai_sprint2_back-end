@@ -16,7 +16,7 @@ namespace senai_locadora_webApi.Controllers
     public class ClientesController : ControllerBase
     {
         private IClienteRepository _ClienteRepository { get; set; }
-    
+
         public ClientesController()
         {
             _ClienteRepository = new ClienteRepository();
@@ -54,8 +54,8 @@ namespace senai_locadora_webApi.Controllers
             return StatusCode(201);
         }
 
-        [HttpPut]
-        public IActionResult PutIdBody(ClienteDomain clienteAtualizado)
+        [HttpPut("{id}")]
+        public IActionResult PutIdUrl(int id, ClienteDomain clienteAtualizado)
         {
             if (clienteAtualizado.nomeCliente == null || clienteAtualizado.idCliente <= 0)
             {
@@ -72,7 +72,7 @@ namespace senai_locadora_webApi.Controllers
             {
                 try
                 {
-                    _ClienteRepository.AtualizarIdCorpo(clienteAtualizado);
+                    _ClienteRepository.AtualizarIdUrl(id, clienteAtualizado);
 
                     return NoContent();
                 }
@@ -89,6 +89,14 @@ namespace senai_locadora_webApi.Controllers
                         errorStatus = true
                     }
                 );
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _ClienteRepository.Deletar(id);
+
+            return NoContent();
         }
     }
 }

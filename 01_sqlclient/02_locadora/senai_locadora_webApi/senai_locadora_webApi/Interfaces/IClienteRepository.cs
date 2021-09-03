@@ -31,7 +31,7 @@ namespace senai_locadora_webApi.Interfaces
         /// Atualiza um cliente existente
         /// </summary>
         /// <param name="clienteAtualizado"></param>
-        void AtualizarIdCorpo(ClienteDomain clienteAtualizado);
+        void AtualizarIdUrl(int idCliente, ClienteDomain clienteAtualizado);
 
         /// <summary>
         /// Cadastra um novo cliente

@@ -10,8 +10,8 @@ namespace senai_locadora_webApi.Repositories
 {
     public class AluguelRepository : IAluguelRepository
     {
-        private string stringConexao = "Data Source=NOTE0113A4\\SQLEXPRESS; initial catalog=LOCADORA; user Id=sa; pwd=Senai@132";
-        public void AtualizarIdCorpo(AluguelDomain aluguelAtualizado)
+        private string stringConexao = "Data Source=LAPTOP-GBJVH1HS\\SQLEXPRESS; initial catalog=LOCADORA; user Id=sa; pwd=senai@132";
+        public void AtualizarIdUrl(int id, AluguelDomain aluguelAtualizado)
         {
             if (aluguelAtualizado != null)
             {
@@ -85,6 +85,10 @@ namespace senai_locadora_webApi.Repositories
                 using (SqlCommand cmd = new SqlCommand(queryInsert, con))
                 {
                     cmd.Parameters.AddWithValue("@idVeiculo", novoAluguel.idVeiculo);
+                    cmd.Parameters.AddWithValue("@idCliente", novoAluguel.idCliente);
+                    cmd.Parameters.AddWithValue("@dataRetirada", Convert.ToString(novoAluguel.dataRetirada));
+                    cmd.Parameters.AddWithValue("@dataDevolucao", Convert.ToString(novoAluguel.dataDevolucao));
+
 
                     cmd.ExecuteNonQuery();
                 }

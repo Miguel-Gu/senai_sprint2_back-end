@@ -10,9 +10,9 @@ namespace senai_locadora_webApi.Repositories
 {
     public class ClienteRepository : IClienteRepository
     {
-        private string stringConexao = "Data Source=NOTE0113A4\\SQLEXPRESS; initial catalog=LOCADORA; user Id=sa; pwd=Senai@132";
+        private string stringConexao = "Data Source=LAPTOP-GBJVH1HS\\SQLEXPRESS; initial catalog=LOCADORA; user Id=sa; pwd=senai@132";
 
-        public void AtualizarIdCorpo(ClienteDomain clienteAtualizado)
+        public void AtualizarIdUrl(int idCliente, ClienteDomain clienteAtualizado)
         {
             if (clienteAtualizado.nomeCliente != null)
             {
@@ -23,7 +23,7 @@ namespace senai_locadora_webApi.Repositories
                     using (SqlCommand cmd = new SqlCommand(queryUpdateBody, con))
                     {
                         cmd.Parameters.AddWithValue("@nomeCliente", clienteAtualizado.nomeCliente);
-                        cmd.Parameters.AddWithValue("@idCliente", clienteAtualizado.idCliente);
+                        cmd.Parameters.AddWithValue("@idCliente", idCliente);
 
                         con.Open();
 
@@ -70,13 +70,15 @@ namespace senai_locadora_webApi.Repositories
         {
             using (SqlConnection con = new SqlConnection(stringConexao))
             {
-                string queryInsert = "INSERT INTO CLIENTE (nomeCliente) VALUES (@nomeCliente)";
+                string queryInsert = "INSERT INTO CLIENTE (nomeCliente, sobrenomeCliente, CNH) VALUES (@nomeCliente, @sobrenomeCliente, @CNH)";
 
                 con.Open();
 
                 using (SqlCommand cmd = new SqlCommand(queryInsert, con))
                 {
                     cmd.Parameters.AddWithValue("@nomeCliente", novoCliente.nomeCliente);
+                    cmd.Parameters.AddWithValue("@sobrenomeCliente", novoCliente.sobrenomeCliente);
+                    cmd.Parameters.AddWithValue("@CNH", novoCliente.CNH);
 
                     cmd.ExecuteNonQuery();
                 }

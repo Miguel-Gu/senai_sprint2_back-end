@@ -454,19 +454,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\fic\\.nuget\\packages\\": {}
+    "C:\\Users\\gumig\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\fic\\Desktop\\senai_sprint2_back-end\\01_sqlclient\\01_filmes\\senai_filmes_webAPI\\senai_filmes_webAPI\\senai_filmes_webAPI.csproj",
+      "projectUniqueName": "C:\\Users\\gumig\\Desktop\\Dev\\2ºSemestre\\senai_sprint2_api\\01_sqlclient\\01_filmes\\senai_filmes_webAPI\\senai_filmes_webAPI\\senai_filmes_webAPI.csproj",
       "projectName": "senai_filmes_webAPI",
-      "projectPath": "C:\\Users\\fic\\Desktop\\senai_sprint2_back-end\\01_sqlclient\\01_filmes\\senai_filmes_webAPI\\senai_filmes_webAPI\\senai_filmes_webAPI.csproj",
-      "packagesPath": "C:\\Users\\fic\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\fic\\Desktop\\senai_sprint2_back-end\\01_sqlclient\\01_filmes\\senai_filmes_webAPI\\senai_filmes_webAPI\\obj\\",
+      "projectPath": "C:\\Users\\gumig\\Desktop\\Dev\\2ºSemestre\\senai_sprint2_api\\01_sqlclient\\01_filmes\\senai_filmes_webAPI\\senai_filmes_webAPI\\senai_filmes_webAPI.csproj",
+      "packagesPath": "C:\\Users\\gumig\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\gumig\\Desktop\\Dev\\2ºSemestre\\senai_sprint2_api\\01_sqlclient\\01_filmes\\senai_filmes_webAPI\\senai_filmes_webAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\fic\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\gumig\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

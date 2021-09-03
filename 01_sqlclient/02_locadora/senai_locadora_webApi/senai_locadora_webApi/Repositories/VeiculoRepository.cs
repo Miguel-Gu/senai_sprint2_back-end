@@ -13,8 +13,8 @@ namespace senai_locadora_webApi.Repositories
     /// </summary>
     public class VeiculoRepository : IVeiculoRepository
     {
-        private string stringConexao = "Data Source=NOTE0113A4\\SQLEXPRESS; initial catalog=LOCADORA; user Id=sa; pwd=Senai@132";
-        public void AtualizarIdCorpo(VeiculoDomain veiculoAtualizado)
+        private string stringConexao = "Data Source=LAPTOP-GBJVH1HS\\SQLEXPRESS; initial catalog=LOCADORA; user Id=sa; pwd=senai@132";
+        public void AtualizarIdUrl(int idVeiculo, VeiculoDomain veiculoAtualizado)
         {
             if (veiculoAtualizado.placa != null)
             {

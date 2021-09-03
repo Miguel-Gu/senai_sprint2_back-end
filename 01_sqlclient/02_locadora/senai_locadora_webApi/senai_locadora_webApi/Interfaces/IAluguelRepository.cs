@@ -34,7 +34,7 @@ namespace senai_locadora_webApi.Interfaces
         /// Atualiza um aluguel existente
         /// </summary>
         /// <param name="aluguelAtualizado"></param>
-        void AtualizarIdCorpo(AluguelDomain aluguelAtualizado);
+        void AtualizarIdUrl(int id, AluguelDomain aluguelAtualizado);
 
         /// <summary>
         /// Cadastra um novo aluguel
