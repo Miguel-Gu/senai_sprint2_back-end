@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\senai_locadora_webApi"
+    "\\senai_locadora_webApi",
+    "\\senai_locadora_webApi\\Controllers"
   ],
-  "SelectedNode": "\\senai_locadora_webApi.sln",
+  "SelectedNode": "\\senai_locadora_webApi\\Controllers\\AlugueisController.cs",
   "PreviewInSolutionExplorer": false
 }
